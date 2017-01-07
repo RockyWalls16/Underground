@@ -1,5 +1,6 @@
 package com.thva.underground;
 
+import com.thva.underground.achievements.UGAchievements;
 import com.thva.underground.blocks.UGBlocks;
 import com.thva.underground.items.UGItems;
 import com.thva.underground.recipes.UGRecipes;
@@ -28,5 +29,7 @@ public class CommonProxy
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
-	{}
+	{
+		UGAchievements.registerAllAchievements();
+	}
 }
