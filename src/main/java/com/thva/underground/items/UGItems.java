@@ -2,7 +2,7 @@ package com.thva.underground.items;
 
 import java.util.ArrayList;
 
-import com.thva.underground.UnderGround;
+import com.thva.underground.Underground;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -13,7 +13,9 @@ public class UGItems
 	// List which contains all ug items
 	public static final ArrayList<Item> ITEM_LIST = new ArrayList<Item>();
 
-	public static final BaseItem ITEM_TEST = (BaseItem) new BaseItem().setUnlocalizedName("item_test").setCreativeTab(UnderGround.UG_TAB);
+	public static final BaseItem ITEM_TEST = (BaseItem) new BaseItem().setUnlocalizedName("item_test").setCreativeTab(Underground.UG_TAB);
+	
+	public static final ItemWarp WARPER = (ItemWarp) new ItemWarp().setUnlocalizedName("warper").setCreativeTab(Underground.UG_TAB);
 
 	/**
 	 * Used to register all items
@@ -21,6 +23,7 @@ public class UGItems
 	public static void registerAllItems()
 	{
 		registerBaseItem(ITEM_TEST);
+		registerBaseItem(WARPER);
 	}
 
 	/**
@@ -33,6 +36,6 @@ public class UGItems
 	{
 		ITEM_LIST.add(item);
 
-		GameRegistry.register(item, new ResourceLocation(UnderGround.MODID, item.getUnlocalizedName().substring(5)));
+		GameRegistry.register(item, new ResourceLocation(Underground.MODID, item.getUnlocalizedName().substring(5)));
 	}
 }
