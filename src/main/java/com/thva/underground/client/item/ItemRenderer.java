@@ -1,6 +1,6 @@
 package com.thva.underground.client.item;
 
-import com.thva.underground.UnderGround;
+import com.thva.underground.Underground;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -16,6 +16,6 @@ public class ItemRenderer
 	 */
 	public static void registerItemRender(Item item)
 	{
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(UnderGround.MODID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(Underground.MODID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
 	}
 }

@@ -2,7 +2,7 @@ package com.thva.underground.blocks;
 
 import java.util.ArrayList;
 
-import com.thva.underground.UnderGround;
+import com.thva.underground.Underground;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -16,7 +16,7 @@ public class UGBlocks
 	// List which contains all ug blocks
 	public static final ArrayList<Block> BLOCK_LIST = new ArrayList<Block>();
 
-	public static final BaseBlock TEST_BLOCK = (BaseBlock) new BaseBlock(Material.ROCK).setSoundType(SoundType.METAL).setHardness(1.0F).setResistance(2.0F).setUnlocalizedName("test_block").setCreativeTab(UnderGround.UG_TAB);
+	public static final BaseBlock TEST_BLOCK = (BaseBlock) new BaseBlock(Material.ROCK).setSoundType(SoundType.METAL).setHardness(1.0F).setResistance(2.0F).setUnlocalizedName("test_block").setCreativeTab(Underground.UG_TAB);
 
 	/**
 	 * Used to register all blocks in game
@@ -36,7 +36,7 @@ public class UGBlocks
 	{
 		BLOCK_LIST.add(block);
 
-		ResourceLocation rl = new ResourceLocation(UnderGround.MODID, block.getUnlocalizedName().substring(5));
+		ResourceLocation rl = new ResourceLocation(Underground.MODID, block.getUnlocalizedName().substring(5));
 
 		GameRegistry.register(block, rl);
 		GameRegistry.register(new ItemBlock(block), rl);

@@ -3,7 +3,7 @@ package com.thva.underground.achievements;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.thva.underground.UnderGround;
+import com.thva.underground.Underground;
 import com.thva.underground.blocks.UGBlocks;
 
 import net.minecraft.block.Block;
@@ -43,7 +43,7 @@ public class UGAchievements
 	 */
 	private static Achievement createAchievement(String name, ItemStack icon, Achievement parent, int column, int row)
 	{
-		Achievement output = new Achievement(UnderGround.MODID + ":ach_" + name, "ug_" + name, column, row, icon, parent);
+		Achievement output = new Achievement(Underground.MODID + ":ach_" + name, "ug_" + name, column, row, icon, parent);
 		achievementList.add(output);
 		output.registerStat();
 		
