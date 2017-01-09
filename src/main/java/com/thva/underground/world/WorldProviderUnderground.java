@@ -1,6 +1,7 @@
 package com.thva.underground.world;
 
 import com.thva.underground.Underground;
+import com.thva.underground.world.biomes.UGBiomes;
 import com.thva.underground.world.gen.ChunkProviderUnderground;
 
 import net.minecraft.init.Biomes;
@@ -21,7 +22,7 @@ public class WorldProviderUnderground extends WorldProviderHell
 	@Override
     public void init()
     {
-        this.biomeProvider = new BiomeProviderSingle(Biomes.PLAINS);
+        this.biomeProvider = new BiomeProviderSingle(UGBiomes.UNDERGROUND_PLAINS);
         this.hasNoSky = true;
     }
 	

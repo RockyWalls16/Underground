@@ -40,6 +40,8 @@ public class ChunkProviderUnderground implements IChunkGenerator
     protected static final IBlockState STONE = Blocks.STONE.getDefaultState();
     protected static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
     protected static final IBlockState WATER = Blocks.WATER.getDefaultState();
+    protected static final IBlockState FLOWING_WATER_0 = Blocks.FLOWING_WATER.getDefaultState();
+    protected static final IBlockState FLOWING_WATER_1 = Blocks.FLOWING_WATER.getStateFromMeta(1);
     protected static final IBlockState GRASS = Blocks.GRASS.getDefaultState();
     protected static final IBlockState DIRT = Blocks.DIRT.getDefaultState();
     protected static final IBlockState SAND = Blocks.SAND.getDefaultState();
@@ -234,14 +236,18 @@ public class ChunkProviderUnderground implements IChunkGenerator
                         		}
                         	}
                         }//Generate Water columns
-                        else if(j1 == world.getSeaLevel() - 1 && currentBlockState.getBlock() == WATER.getBlock() && over.getBlock() == AIR.getBlock() && this.rand.nextInt(150) == 0)
+                        else if(j1 == world.getSeaLevel() - 1 && currentBlockState.getBlock() == WATER.getBlock() && over.getBlock() == AIR.getBlock() && this.rand.nextFloat() <= 0.05)
                         {
                         	for(int kl = j1 + 1; kl < 220; kl++)
                         	{
-                        		if(primer.getBlockState(k, j1 + kl, j).getMaterial().isSolid())
+                        		if(primer.getBlockState(k, kl, j).getMaterial().isSolid() && primer.getBlockState(k, kl + 1, j).getMaterial().isSolid() && primer.getBlockState(k, kl - 2, j).getMaterial().isLiquid())
                         		{
-                        			primer.setBlockState(k, j1 + kl, j, WATER);
+                        			primer.setBlockState(k, kl, j, FLOWING_WATER_0);
                         			break;
+                        		}
+                        		else
+                        		{
+                        			primer.setBlockState(k, kl, j, FLOWING_WATER_1);
                         		}
                         	}
                         }
