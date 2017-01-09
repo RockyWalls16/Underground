@@ -1,6 +1,7 @@
 package com.thva.underground.world;
 
 import com.thva.underground.Underground;
+import com.thva.underground.world.gen.ChunkProviderUnderground;
 
 import net.minecraft.init.Biomes;
 import net.minecraft.util.math.Vec3d;
@@ -57,7 +58,7 @@ public class WorldProviderUnderground extends WorldProviderHell
 	@Override
 	public DimensionType getDimensionType()
 	{
-		return UndergroundDimension.UNDERGROUND_DIMENSION_TYPE;
+		return UndergroundDimension.getDimensionType();
 	}
 
 	@Override

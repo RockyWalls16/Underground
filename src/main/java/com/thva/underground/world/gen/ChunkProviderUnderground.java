@@ -1,4 +1,4 @@
-package com.thva.underground.world;
+package com.thva.underground.world.gen;
 
 import java.util.List;
 import java.util.Random;
@@ -196,11 +196,11 @@ public class ChunkProviderUnderground implements IChunkGenerator
                 {
                     if (j1 < 255 - this.rand.nextInt(5) && j1 > this.rand.nextInt(5))
                     {
-                        IBlockState iblockstate2 = primer.getBlockState(k, j1, j);
+                        IBlockState currentBlockState = primer.getBlockState(k, j1, j);
                         IBlockState over = primer.getBlockState(k, j1 + 1, j);
                         
                         //SAND
-                        if (j1 < 72 - this.rand.nextInt(5) && j1 > this.rand.nextInt(5) + 20 && iblockstate2.getBlock() == STONE.getBlock())
+                        if (j1 < 72 - this.rand.nextInt(5) && j1 > this.rand.nextInt(5) + 20 && currentBlockState.getBlock() == STONE.getBlock())
                         {
                         	for(int kl = 0; kl < 4; kl++)
                         	{
@@ -215,7 +215,7 @@ public class ChunkProviderUnderground implements IChunkGenerator
 	                        	}
                         	}
                         }//Grass Layer
-                        else if(j1 < 150 - this.rand.nextInt(5) && j1 >= 68 && iblockstate2.getBlock() == STONE.getBlock())
+                        else if(j1 < 150 - this.rand.nextInt(5) && j1 >= 68 && currentBlockState.getBlock() == STONE.getBlock())
                         {
                         	if(!over.getMaterial().isSolid())
                         	{
@@ -231,6 +231,17 @@ public class ChunkProviderUnderground implements IChunkGenerator
                         				primer.setBlockState(k, j1, j, DIRT);
                         				break;
                         			}
+                        		}
+                        	}
+                        }//Generate Water columns
+                        else if(j1 == world.getSeaLevel() - 1 && currentBlockState.getBlock() == WATER.getBlock() && over.getBlock() == AIR.getBlock() && this.rand.nextInt(150) == 0)
+                        {
+                        	for(int kl = j1 + 1; kl < 220; kl++)
+                        	{
+                        		if(primer.getBlockState(k, j1 + kl, j).getMaterial().isSolid())
+                        		{
+                        			primer.setBlockState(k, j1 + kl, j, WATER);
+                        			break;
                         		}
                         	}
                         }
