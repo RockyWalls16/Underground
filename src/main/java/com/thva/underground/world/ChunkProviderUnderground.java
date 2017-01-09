@@ -220,8 +220,8 @@ public class ChunkProviderUnderground implements IChunkGenerator
 	                        		primer.setBlockState(k, j1, j, SANDSTONE);
 	                        	}
                         	}
-                        }
-                        else if(j1 < 150 - this.rand.nextInt(5) && j1 > 68 && iblockstate2.getBlock() == STONE.getBlock())
+                        }//Grass Layer
+                        else if(j1 < 150 - this.rand.nextInt(5) && j1 >= 68 && iblockstate2.getBlock() == STONE.getBlock())
                         {
                         	if(!over.getMaterial().isSolid())
                         	{
@@ -229,7 +229,15 @@ public class ChunkProviderUnderground implements IChunkGenerator
                         	}
                         	else
                         	{
-                        		primer.setBlockState(k, j1, j, DIRT);
+                        		int depth = 4 + this.rand.nextInt(3) + (primer.getBlockState(k, j1 + 1, j).getBlock() == DIRT.getBlock() ? 2 : 0);
+                        		for(int kl = 1; kl <= depth; kl++)
+                        		{
+                        			if(!primer.getBlockState(k, j1 + kl, j).getMaterial().isSolid())
+                        			{
+                        				primer.setBlockState(k, j1, j, DIRT);
+                        				break;
+                        			}
+                        		}
                         	}
                         }
                     }
