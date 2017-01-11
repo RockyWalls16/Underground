@@ -6,7 +6,6 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.BlockFalling;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.entity.EnumCreatureType;
@@ -30,7 +29,6 @@ import net.minecraft.world.gen.feature.WorldGenHellLava;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
-import net.minecraftforge.event.terraingen.InitNoiseGensEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class ChunkProviderUnderground implements IChunkGenerator
@@ -236,7 +234,7 @@ public class ChunkProviderUnderground implements IChunkGenerator
                         		}
                         	}
                         }//Generate Water columns
-                        else if(j1 == world.getSeaLevel() - 1 && currentBlockState.getBlock() == WATER.getBlock() && over.getBlock() == AIR.getBlock() && this.rand.nextFloat() <= 0.05)
+                        else if(j1 == world.getSeaLevel() - 1 && currentBlockState.getBlock() == WATER.getBlock() && over.getBlock() == AIR.getBlock() && this.rand.nextFloat() <= 0.0005)
                         {
                         	for(int kl = j1 + 1; kl < 220; kl++)
                         	{
@@ -281,7 +279,7 @@ public class ChunkProviderUnderground implements IChunkGenerator
 
         for (int i = 0; i < abyte.length; ++i)
         {
-            abyte[i] = (byte)Biome.getIdForBiome(abiome[i]);
+            abyte[i] = (byte) Biome.getIdForBiome(abiome[i]);
         }
 
         chunk.resetRelightChecks();

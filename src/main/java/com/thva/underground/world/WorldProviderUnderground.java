@@ -2,6 +2,7 @@ package com.thva.underground.world;
 
 import com.thva.underground.Underground;
 import com.thva.underground.world.biomes.UGBiomes;
+import com.thva.underground.world.biomes.provider.UndergroundBiomeProvider;
 import com.thva.underground.world.gen.ChunkProviderUnderground;
 
 import net.minecraft.init.Biomes;
@@ -9,6 +10,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldProviderHell;
+import net.minecraft.world.WorldProviderSurface;
+import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.biome.BiomeProviderSingle;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.chunk.IChunkGenerator;
@@ -18,11 +21,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WorldProviderUnderground extends WorldProviderHell
 {
-	
 	@Override
     public void init()
     {
-        this.biomeProvider = new BiomeProviderSingle(UGBiomes.UNDERGROUND_PLAINS);
+        this.biomeProvider = new UndergroundBiomeProvider(this.world.getWorldInfo());
         this.hasNoSky = true;
     }
 	
@@ -53,7 +55,13 @@ public class WorldProviderUnderground extends WorldProviderHell
 	@Override
 	public int getActualHeight()
     {
-        return hasNoSky ? 128 : 256;
+        return 256;
+    }
+	
+	@Override
+	public boolean canRespawnHere()
+    {
+        return true;
     }
 	
 	@Override

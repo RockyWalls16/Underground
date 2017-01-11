@@ -1,14 +1,12 @@
 package com.thva.underground.world.biomes;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.ColorizerGrass;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BiomeUndergroundPlains extends BiomeUnderground
+public class BiomeUndergroundForest extends BiomeUnderground
 {
-	public BiomeUndergroundPlains(BiomeProperties properties)
+	public BiomeUndergroundForest(BiomeProperties properties)
 	{
 		super(properties);
 		
@@ -18,6 +16,6 @@ public class BiomeUndergroundPlains extends BiomeUnderground
     @SideOnly(Side.CLIENT)
     public int getGrassColorAtPos(BlockPos pos)
     {
-        return 0x315A30;
+        return 0x007700;
     }
 }
