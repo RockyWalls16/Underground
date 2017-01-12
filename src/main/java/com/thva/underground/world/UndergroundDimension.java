@@ -1,18 +1,26 @@
 package com.thva.underground.world;
 
 import com.thva.underground.Underground;
+import com.thva.underground.misc.UGConfig;
 
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.config.Configuration;
 
 public class UndergroundDimension
 {
-	//TODO add configurable dimension id
-	public static final DimensionType UNDERGROUND_DIMENSION_TYPE = DimensionType.register("underground", Underground.MODID, 47, WorldProviderUnderground.class, false);
+	private static DimensionType undergroundDimensionType;
 	
 	public static void initDimension()
 	{
-		DimensionManager.registerDimension(47, UNDERGROUND_DIMENSION_TYPE);
+		int dimensionId = UGConfig.getConfig().getInt("dimensionId", "dimension", DimensionManager.getNextFreeDimId(), Integer.MIN_VALUE, Integer.MAX_VALUE, "Change if you have any conflict with dimension ids");
+		
+		undergroundDimensionType = DimensionType.register("underground", Underground.MODID, dimensionId, WorldProviderUnderground.class, false);
+		DimensionManager.registerDimension(dimensionId, undergroundDimensionType);
 	}
 	
+	public static DimensionType getDimensionType()
+	{
+		return undergroundDimensionType;
+	}
 }

@@ -24,7 +24,7 @@ public class ItemWarp extends BaseItem
     {
 		if (!player.isRiding() && !player.isBeingRidden() && player.isNonBoss() && !worldIn.isRemote)
         {
-			player.getServer().getPlayerList().transferPlayerToDimension((EntityPlayerMP) player, UndergroundDimension.UNDERGROUND_DIMENSION_TYPE.getId(), new TeleporterUnderground((WorldServer) player.getEntityWorld()));
+			player.getServer().getPlayerList().transferPlayerToDimension((EntityPlayerMP) player, UndergroundDimension.getDimensionType().getId(), new TeleporterUnderground((WorldServer) player.getEntityWorld()));
         }
 		return EnumActionResult.SUCCESS;
     }

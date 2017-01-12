@@ -1,4 +1,4 @@
-package com.thva.underground.world;
+package com.thva.underground.world.gen;
 
 import java.util.List;
 import java.util.Random;
@@ -6,7 +6,6 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.BlockFalling;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.entity.EnumCreatureType;
@@ -30,32 +29,30 @@ import net.minecraft.world.gen.feature.WorldGenHellLava;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
-import net.minecraftforge.event.terraingen.InitNoiseGensEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class ChunkProviderUnderground implements IChunkGenerator
 {
+	//Blocks
     protected static final IBlockState AIR = Blocks.AIR.getDefaultState();
     protected static final IBlockState STONE = Blocks.STONE.getDefaultState();
     protected static final IBlockState BEDROCK = Blocks.BEDROCK.getDefaultState();
     protected static final IBlockState WATER = Blocks.WATER.getDefaultState();
+    protected static final IBlockState FLOWING_WATER_0 = Blocks.FLOWING_WATER.getDefaultState();
+    protected static final IBlockState FLOWING_WATER_1 = Blocks.FLOWING_WATER.getStateFromMeta(1);
     protected static final IBlockState GRASS = Blocks.GRASS.getDefaultState();
     protected static final IBlockState DIRT = Blocks.DIRT.getDefaultState();
     protected static final IBlockState SAND = Blocks.SAND.getDefaultState();
     protected static final IBlockState SANDSTONE = Blocks.SANDSTONE.getDefaultState();
+    
     private final World world;
     private final boolean generateStructures;
     private final Random rand;
-    /** Holds the noise used to determine whether slowsand can be generated at a location */
-    private double[] slowsandNoise = new double[256];
-    private double[] gravelNoise = new double[256];
     private double[] depthBuffer = new double[256];
     private double[] buffer;
     private NoiseGeneratorOctaves lperlinNoise1;
     private NoiseGeneratorOctaves lperlinNoise2;
     private NoiseGeneratorOctaves perlinNoise1;
-    /** Determines whether slowsand or gravel can be generated at a location */
-    private NoiseGeneratorOctaves slowsandGravelNoiseGen;
     /** Determines whether something other than nettherack can be generated at a location */
     private NoiseGeneratorOctaves netherrackExculsivityNoiseGen;
     public NoiseGeneratorOctaves scaleNoise;
@@ -85,25 +82,21 @@ public class ChunkProviderUnderground implements IChunkGenerator
         this.lperlinNoise1 = new NoiseGeneratorOctaves(this.rand, 16);
         this.lperlinNoise2 = new NoiseGeneratorOctaves(this.rand, 16);
         this.perlinNoise1 = new NoiseGeneratorOctaves(this.rand, 8);
-        this.slowsandGravelNoiseGen = new NoiseGeneratorOctaves(this.rand, 4);
         this.netherrackExculsivityNoiseGen = new NoiseGeneratorOctaves(this.rand, 4);
         this.scaleNoise = new NoiseGeneratorOctaves(this.rand, 10);
         this.depthNoise = new NoiseGeneratorOctaves(this.rand, 16);
         worldIn.setSeaLevel(63);
-
-        InitNoiseGensEvent.ContextHell ctx = new InitNoiseGensEvent.ContextHell(lperlinNoise1, lperlinNoise2, perlinNoise1, slowsandGravelNoiseGen, netherrackExculsivityNoiseGen, scaleNoise, depthNoise);
-        ctx = net.minecraftforge.event.terraingen.TerrainGen.getModdedNoiseGenerators(worldIn, this.rand, ctx);
-        this.lperlinNoise1 = ctx.getLPerlin1();
-        this.lperlinNoise2 = ctx.getLPerlin2();
-        this.perlinNoise1 = ctx.getPerlin();
-        this.slowsandGravelNoiseGen = ctx.getPerlin2();
-        this.netherrackExculsivityNoiseGen = ctx.getPerlin3();
-        this.scaleNoise = ctx.getScale();
-        this.depthNoise = ctx.getDepth();
+        
         this.genNetherBridge = (MapGenNetherBridge)TerrainGen.getModdedMapGen(genNetherBridge, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_BRIDGE);
         this.genNetherCaves = TerrainGen.getModdedMapGen(genNetherCaves, net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETHER_CAVE);
     }
 
+    /**
+     * Generate world blocks
+     * @param chunkX
+     * @param chunkZ
+     * @param primer
+     */
     public void prepareHeights(int chunkX, int chunkZ, ChunkPrimer primer)
     {
         int i = 4;
@@ -178,35 +171,36 @@ public class ChunkProviderUnderground implements IChunkGenerator
         }
     }
 
-    public void buildSurfaces(int p_185937_1_, int p_185937_2_, ChunkPrimer primer)
+    /**
+     * Generate Layers
+     * @param chunkX
+     * @param chunkY
+     * @param primer
+     */
+    public void buildSurfaces(int chunkX, int chunkY, ChunkPrimer primer)
     {
-        if (!net.minecraftforge.event.ForgeEventFactory.onReplaceBiomeBlocks(this, p_185937_1_, p_185937_2_, primer, this.world)) return;
         int i = this.world.getSeaLevel() + 1;
         double d0 = 0.03125D;
-        this.slowsandNoise = this.slowsandGravelNoiseGen.generateNoiseOctaves(this.slowsandNoise, p_185937_1_ * 16, p_185937_2_ * 16, 0, 16, 16, 1, 0.03125D, 0.03125D, 1.0D);
-        this.gravelNoise = this.slowsandGravelNoiseGen.generateNoiseOctaves(this.gravelNoise, p_185937_1_ * 16, 109, p_185937_2_ * 16, 16, 1, 16, 0.03125D, 1.0D, 0.03125D);
-        this.depthBuffer = this.netherrackExculsivityNoiseGen.generateNoiseOctaves(this.depthBuffer, p_185937_1_ * 16, p_185937_2_ * 16, 0, 16, 16, 1, 0.0625D, 0.0625D, 0.0625D);
+        this.depthBuffer = this.netherrackExculsivityNoiseGen.generateNoiseOctaves(this.depthBuffer, chunkX * 16, chunkY * 16, 0, 16, 16, 1, 0.0625D, 0.0625D, 0.0625D);
 
         for (int j = 0; j < 16; ++j)
         {
             for (int k = 0; k < 16; ++k)
             {
-                boolean flag = this.slowsandNoise[j + k * 16] + this.rand.nextDouble() * 0.2D > 0.0D;
-                boolean flag1 = this.gravelNoise[j + k * 16] + this.rand.nextDouble() * 0.2D > 0.0D;
                 int l = (int)(this.depthBuffer[j + k * 16] / 3.0D + 3.0D + this.rand.nextDouble() * 0.25D);
                 int i1 = -1;
                 IBlockState iblockstate = STONE;
                 IBlockState iblockstate1 = STONE;
 
-                for (int j1 = 0; j1 < 255; ++j1)
+                for (int j1 = 0; j1 <= 255; ++j1)
                 {
                     if (j1 < 255 - this.rand.nextInt(5) && j1 > this.rand.nextInt(5))
                     {
-                        IBlockState iblockstate2 = primer.getBlockState(k, j1, j);
+                        IBlockState currentBlockState = primer.getBlockState(k, j1, j);
                         IBlockState over = primer.getBlockState(k, j1 + 1, j);
                         
                         //SAND
-                        if (j1 < 72 - this.rand.nextInt(5) && j1 > this.rand.nextInt(5) + 20 && iblockstate2.getBlock() == STONE.getBlock())
+                        if (j1 < 72 - this.rand.nextInt(5) && j1 > this.rand.nextInt(5) + 20 && currentBlockState.getBlock() == STONE.getBlock())
                         {
                         	for(int kl = 0; kl < 4; kl++)
                         	{
@@ -221,7 +215,7 @@ public class ChunkProviderUnderground implements IChunkGenerator
 	                        	}
                         	}
                         }//Grass Layer
-                        else if(j1 < 150 - this.rand.nextInt(5) && j1 >= 68 && iblockstate2.getBlock() == STONE.getBlock())
+                        else if(j1 < 150 - this.rand.nextInt(5) && j1 >= 68 && currentBlockState.getBlock() == STONE.getBlock())
                         {
                         	if(!over.getMaterial().isSolid())
                         	{
@@ -237,6 +231,21 @@ public class ChunkProviderUnderground implements IChunkGenerator
                         				primer.setBlockState(k, j1, j, DIRT);
                         				break;
                         			}
+                        		}
+                        	}
+                        }//Generate Water columns
+                        else if(j1 == world.getSeaLevel() - 1 && currentBlockState.getBlock() == WATER.getBlock() && over.getBlock() == AIR.getBlock() && this.rand.nextFloat() <= 0.0005)
+                        {
+                        	for(int kl = j1 + 1; kl < 220; kl++)
+                        	{
+                        		if(primer.getBlockState(k, kl, j).getMaterial().isSolid() && primer.getBlockState(k, kl + 1, j).getMaterial().isSolid() && primer.getBlockState(k, kl - 2, j).getMaterial().isLiquid())
+                        		{
+                        			primer.setBlockState(k, kl, j, FLOWING_WATER_0);
+                        			break;
+                        		}
+                        		else
+                        		{
+                        			primer.setBlockState(k, kl, j, FLOWING_WATER_1);
                         		}
                         	}
                         }
@@ -270,13 +279,17 @@ public class ChunkProviderUnderground implements IChunkGenerator
 
         for (int i = 0; i < abyte.length; ++i)
         {
-            abyte[i] = (byte)Biome.getIdForBiome(abiome[i]);
+            abyte[i] = (byte) Biome.getIdForBiome(abiome[i]);
         }
 
         chunk.resetRelightChecks();
         return chunk;
     }
 
+    /**
+     * Generate heights using perlin noise
+     * @return noise output
+     */
     private double[] getHeights(double[] p_185938_1_, int p_185938_2_, int p_185938_3_, int p_185938_4_, int p_185938_5_, int p_185938_6_, int p_185938_7_)
     {
         if (p_185938_1_ == null)
