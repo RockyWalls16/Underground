@@ -6,9 +6,9 @@ import net.minecraft.world.ColorizerGrass;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BiomeUndergroundField extends BiomeUnderground
+public class BiomeUndergroundTropical extends BiomeUnderground
 {
-	public BiomeUndergroundField(BiomeProperties properties)
+	public BiomeUndergroundTropical(BiomeProperties properties)
 	{
 		super(properties);
 		

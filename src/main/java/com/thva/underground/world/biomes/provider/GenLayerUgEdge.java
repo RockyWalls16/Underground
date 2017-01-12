@@ -36,7 +36,7 @@ public class GenLayerUgEdge extends GenLayer
 
     private int[] getIntsCoolWarm(int areaX, int areaY, int areaWidth, int areaHeight)
     {
-    	int fieldId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FIELD);
+    	int tropicalId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_TROPICAL);
     	int forestId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FOREST);
     	int fridgeId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FRIDGE);
     	int volcanoId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_VOLCANO);
@@ -55,7 +55,7 @@ public class GenLayerUgEdge extends GenLayer
                 this.initChunkSeed((long)(j1 + areaX), (long)(i1 + areaY));
                 int k1 = aint[j1 + 1 + (i1 + 1) * k];
 
-                if (k1 == fieldId)
+                if (k1 == tropicalId)
                 {
                     int l1 = aint[j1 + 1 + (i1 + 1 - 1) * k];
                     int i2 = aint[j1 + 1 + 1 + (i1 + 1) * k];
@@ -80,7 +80,7 @@ public class GenLayerUgEdge extends GenLayer
     private int[] getIntsHeatIce(int areaX, int areaY, int areaWidth, int areaHeight)
     {
     	int plainsId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_PLAINS);
-    	int fieldId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FIELD);
+    	int fieldId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_TROPICAL);
     	int forestId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FOREST);
     	int fridgeId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FRIDGE);
     	int volcanoId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_VOLCANO);

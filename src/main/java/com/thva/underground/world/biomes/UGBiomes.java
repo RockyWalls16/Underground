@@ -12,12 +12,12 @@ import net.minecraftforge.common.BiomeManager.BiomeType;
 
 public class UGBiomes
 {
-	public static final Biome UNDERGROUND_PLAINS = new BiomeUndergroundPlains(new BiomeProperties("Under. Plains"));
-	public static final Biome UNDERGROUND_FIELD = new BiomeUndergroundField(new BiomeProperties("Under. Field"));
-	public static final Biome UNDERGROUND_FOREST = new BiomeUndergroundForest(new BiomeProperties("Under. Forest"));
-	public static final Biome UNDERGROUND_SHROOM = new BiomeUndergroundForest(new BiomeProperties("Under. Shroom Forest"));
-	public static final Biome UNDERGROUND_FRIDGE = new BiomeUndergroundFridge(new BiomeProperties("Under. Fridge"));
-	public static final Biome UNDERGROUND_VOLCANO = new BiomeUndergroundVolcano(new BiomeProperties("Under. Volcano"));
+	public static final Biome UNDERGROUND_PLAINS = new BiomeUndergroundPlains(new BiomePropertiesUg("Under. Plains"));
+	public static final Biome UNDERGROUND_TROPICAL = new BiomeUndergroundTropical(new BiomePropertiesUg("Under. Tropical"));
+	public static final Biome UNDERGROUND_FOREST = new BiomeUndergroundForest(new BiomePropertiesUg("Under. Forest"));
+	public static final Biome UNDERGROUND_SHROOM = new BiomeUndergroundForest(new BiomePropertiesUg("Under. Shroom Forest"));
+	public static final Biome UNDERGROUND_FRIDGE = new BiomeUndergroundFridge(new BiomePropertiesUg("Under. Fridge"));
+	public static final Biome UNDERGROUND_VOLCANO = new BiomeUndergroundVolcano(new BiomePropertiesUg("Under. Volcano"));
 	
 	/**
 	 * Used to register biomes
@@ -25,7 +25,7 @@ public class UGBiomes
 	public static void initBiomes()
 	{
 		Biome.registerBiome(getBiomeId("Ug_Plains"), "Ug_Plains", UNDERGROUND_PLAINS);
-		Biome.registerBiome(getBiomeId("Ug_Field"), "Ug_Field", UNDERGROUND_FIELD);
+		Biome.registerBiome(getBiomeId("Ug_Tropical"), "Ug_Tropical", UNDERGROUND_TROPICAL);
 		Biome.registerBiome(getBiomeId("Ug_Forest"), "Ug_Forest", UNDERGROUND_FOREST);
 		Biome.registerBiome(getBiomeId("Ug_Shroom"), "Ug_Shroom", UNDERGROUND_SHROOM);
 		Biome.registerBiome(getBiomeId("Ug_Fridge"), "Ug_Fridge", UNDERGROUND_FRIDGE);

@@ -19,7 +19,7 @@ public class GenLayerUgIsland extends GenLayer
      */
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
     {
-    	int fieldId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FIELD);
+    	int tropicalId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_TROPICAL);
     	int plainsId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_PLAINS);
     	
         int[] aint = IntCache.getIntCache(areaWidth * areaHeight);
@@ -29,13 +29,13 @@ public class GenLayerUgIsland extends GenLayer
             for (int j = 0; j < areaWidth; ++j)
             {
                 this.initChunkSeed((long)(areaX + j), (long)(areaY + i));
-                aint[j + i * areaWidth] = this.nextInt(10) == 0 ? fieldId : plainsId;
+                aint[j + i * areaWidth] = this.nextInt(10) == 0 ? tropicalId : plainsId;
             }
         }
 
         if (areaX > -areaWidth && areaX <= 0 && areaY > -areaHeight && areaY <= 0)
         {
-            aint[-areaX + -areaY * areaWidth] = fieldId;
+            aint[-areaX + -areaY * areaWidth] = tropicalId;
         }
 
         return aint;

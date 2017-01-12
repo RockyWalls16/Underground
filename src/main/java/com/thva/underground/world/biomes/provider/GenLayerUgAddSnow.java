@@ -20,7 +20,7 @@ public class GenLayerUgAddSnow extends GenLayer
      */
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
     {
-    	int fieldId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FIELD);
+    	int tropicalId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_TROPICAL);
     	int plainsId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_PLAINS);
     	int forestId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FOREST);
     	int fridgeId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FRIDGE);
@@ -57,7 +57,7 @@ public class GenLayerUgAddSnow extends GenLayer
                     }
                     else
                     {
-                        l1 = fieldId;
+                        l1 = tropicalId;
                     }
 
                     aint1[j1 + i1 * areaWidth] = l1;

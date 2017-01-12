@@ -1,5 +1,7 @@
 package com.thva.underground.world.biomes;
 
+import com.thva.underground.world.gen.UndergroundBiomeDecorator;
+
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDecorator;
 

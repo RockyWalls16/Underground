@@ -20,7 +20,7 @@ public class GenLayerUgAddIsland extends GenLayer
      */
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
     {
-    	int fieldId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FIELD);
+    	int tropicalId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_TROPICAL);
     	int plainsId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_PLAINS);
     	int forestId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FOREST);
     	

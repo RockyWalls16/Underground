@@ -20,7 +20,7 @@ public class GenLayerUgRemoveTooMuchPlains extends GenLayer
      */
     public int[] getInts(int areaX, int areaY, int areaWidth, int areaHeight)
     {
-    	int fieldId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_FIELD);
+    	int tropicalId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_TROPICAL);
     	int plainsId = Biome.getIdForBiome(UGBiomes.UNDERGROUND_PLAINS);
     	
         int i = areaX - 1;
@@ -44,7 +44,7 @@ public class GenLayerUgRemoveTooMuchPlains extends GenLayer
 
                 if (k2 == plainsId && k1 == plainsId && l1 == plainsId && i2 == plainsId && j2 == plainsId && this.nextInt(2) == 0)
                 {
-                    aint1[j1 + i1 * areaWidth] = fieldId;
+                    aint1[j1 + i1 * areaWidth] = tropicalId;
                 }
             }
         }
